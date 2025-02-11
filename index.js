@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const foodData = require('./utilites/foodData');
-const dashboarRoute  = require('./routes/dashboard.route')
+const dashboarRoute  = require('./routes/dish.route')
 const cors = require('cors');
 // console.log(foodData);
 
