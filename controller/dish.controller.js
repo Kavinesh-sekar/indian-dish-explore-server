@@ -68,7 +68,7 @@ const getIngredients = (req, res) => {
         let allIngredients = new Set();
         DishDetails.forEach(dish => {
             dish.ingredients.split(',').forEach(ingredient => {
-                allIngredients.add(ingredient.trim());
+                allIngredients.add(ingredient.toLowerCase().trim());
             });
         });
 
@@ -79,10 +79,37 @@ const getIngredients = (req, res) => {
 }
 
 
+const getDishByIngredient = (req, res) => {
+    try {
+        console.log(req.body); // Debugging
+
+        const { selectedIngredients } = req.body;
+
+        if (!Array.isArray(selectedIngredients) || selectedIngredients.length === 0) {
+            return res.status(400).json({ message: 'Invalid input. Please provide an array of ingredients.' });
+        }
+        const matchedDishes = DishDetails.filter(({ ingredients }) => {
+            if (!ingredients || typeof ingredients !== 'string') return false; // Safe check
+
+            const dishIngredients = ingredients.split(',').map(ing => ing.trim().toLowerCase());
+            return selectedIngredients.every(ing => dishIngredients.includes(ing.toLowerCase()));
+        }).map(({ name, ingredients }) => ({ name, ingredients })); // Extract only name & ingredients
+
+
+
+        return res.status(200).json(matchedDishes);
+    } catch (error) {
+        console.log('err', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+
 module.exports = {
     getAllFood,
     getDishDetails,
     getSearchData,
-    getIngredients
+    getIngredients,
+    getDishByIngredient
 };
 
