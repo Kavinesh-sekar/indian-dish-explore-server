@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const foodData = require('./utilites/foodData');
 const dashboarRoute  = require('./routes/dish.route')
 const cors = require('cors');
-// console.log(foodData);
 
 
 dotenv.config();

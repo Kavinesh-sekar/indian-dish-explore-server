@@ -15,10 +15,8 @@ let UpdatedDetails = DishDetails.map(dish => ({
 
 const getAllFood = (req, res) => {
     try {
-        console.log('inside comes');
-        
+    
         const allDish = DishDetails;
-        // console.log(allDish);
         res.status(200).json({ 'data': allDish });
     } catch (err) {
         console.log('err', err);
@@ -29,15 +27,13 @@ const getAllFood = (req, res) => {
 const getDishDetails  = (req,res)=>{
     try {
         let dishName = req.params.name.toLowerCase(); 
-        console.log('dddddddddddddddddddddddddddddddddd',dishName);
         
         let dish = dishMap.get(dishName);
 
-        console.log('disg',dish);
-        
+       
 
         if (dish) {
-            console.log('iiiiiiiiiii');
+
             
             res.status(200).json(dish);
         } else {
@@ -51,6 +47,7 @@ const getDishDetails  = (req,res)=>{
 
 
 const getSearchData = (req, res) => {
+    try{
     let searchQuery = req.params.search.toLowerCase();
 
     const results = UpdatedDetails.filter(dish =>
@@ -59,8 +56,13 @@ const getSearchData = (req, res) => {
         dish.state?.toLowerCase().includes(searchQuery)
     );
 
-    // Return the ENTIRE dish object, not just the name
+
     return res.status(200).json(results);
+}catch (err) {
+    console.log('err', err);
+    res.status(500).json({ message: 'Internal Server Error' });
+
+}
 };
 
 const getIngredients = (req, res) => {
@@ -74,6 +76,7 @@ const getIngredients = (req, res) => {
 
         res.status(200).json([...allIngredients]);
     } catch (err) {
+        console.log('err', err);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 }
@@ -81,7 +84,7 @@ const getIngredients = (req, res) => {
 
 const getDishByIngredient = (req, res) => {
     try {
-        console.log(req.body); // Debugging
+        
 
         const { selectedIngredients } = req.body;
 

@@ -2,7 +2,7 @@ const express = require('express');
 const route = express.Router();
 const {getAllFood,getDishDetails,getSearchData,getIngredients,getDishByIngredient} = require('../controller/dish.controller') 
 
-console.log('insode route')
+
 
 route.get('/list_all_dish',getAllFood)
 
