@@ -1,6 +1,6 @@
 const express = require('express');
 const route = express.Router();
-const {getAllFood,getDishDetails,getSearchData,getIngredients,getDishByIngredient} = require('../controller/dish.controller') 
+const {getAllFood,getDishDetails,getSearchData,getIngredients,getDishByIngredient,getNew} = require('../controller/dish.controller') 
 
 
 
@@ -13,6 +13,8 @@ route.get('/dish_search/:search',getSearchData);
 route.get('/ingredients',getIngredients);
 
 route.post('/search-by-ingredients',getDishByIngredient);
+
+route.get('/test',getNew);
 
 
 

@@ -107,12 +107,92 @@ const getDishByIngredient = (req, res) => {
     }
 };
 
+const getNew = (req,res)=>{
+    console.log('inside data');
+
+    let filtered= 
+    [
+        {
+          "name": "Balu shahi",
+          "ingredients": "maida flour, yogurt, oil, sugar",
+          "diet": "vegetarian",
+          "prep_time": 45,
+          "cook_time": 25,
+          "flavor_profile": "sweet",
+          "course": "dessert",
+          "state": "west bengal",
+          "region": "east"
+        },
+        {
+          "name": "Boondi",
+          "ingredients": "gram flour, ghee, sugar",
+          "diet": "vegetarian",
+          "prep_time": 45,
+          "cook_time": 30,
+          "flavor_profile": "sweet",
+          "course": "dessert",
+          "state": "rajasthan",
+          "region": "west"
+        },
+        {
+          "name": "Gajar ka halwa",
+          "ingredients": "carrots, milk, sugar, ghee, cashews, raisins",
+          "diet": "vegetarian",
+          "prep_time": 40,
+          "cook_time": 60,
+          "flavor_profile": "sweet",
+          "course": "dessert",
+          "state": "punjab",
+          "region": "north"
+        },
+        {
+          "name": "Ghevar",
+          "ingredients": "flour, ghee, kewra, milk, clarified butter, sugar, almonds, pistachio, saffron, green cardamom",
+          "diet": "vegetarian",
+          "prep_time": 15,
+          "cook_time": 30,
+          "flavor_profile": "sweet",
+          "course": "dessert",
+          "state": "rajasthan",
+          "region": "west"
+        }]
+
+    // let filtered = [...DishDetails];
+    
+
+    // const data  = req.body;
+    console.log('data',req.query);
+
+    console.log('gpr',req.query.prep_time.gte);
+
+    // let min  =req.query["prep_time[gte]"]
+
+    // console.log('min',min);
+    
+    
+
+
+    if(req.query.prep_time.gte){
+        filtered = filtered.filter((data)=>data.prep_time>= Number(req.query.prep_time.gte))
+    }
+    if(req.query.prep_time.lte)
+    {
+        filtered = filtered.filter((data)=>data.prep_time<= Number(req.query.prep_time.lte))
+
+    }
+    console.log('fffff',filtered)
+    console.log('fffff',filtered.length)
+    
+    return res.json('dd')
+}
+
 
 module.exports = {
     getAllFood,
     getDishDetails,
     getSearchData,
     getIngredients,
-    getDishByIngredient
+    getDishByIngredient,
+    getNew
 };
 
